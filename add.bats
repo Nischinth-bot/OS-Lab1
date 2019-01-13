@@ -12,7 +12,7 @@ add()
      #add it to the total
      if [[ $arg =~ ^[[:digit:]+]$ ]]
      then
-        result=$[$result+$arg]
+        let result=$result+$arg
      fi
   done
   echo $result
@@ -28,7 +28,7 @@ add()
   #whatever output is produced by the function is
   #in the variable $output
   echo "output: $output"
-  [ "$output" = "5" ]
+  [ "$output" = "6" ]
   #whatever is returned by the function is
   #in the variable $status
   [ "$status" = "0" ]

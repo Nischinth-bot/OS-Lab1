@@ -8,11 +8,9 @@
 #a directory the function returns 1. Otherwise,
 #the function returns 0.
 lsdirs() {
-  #put your code here
   return 0   
 }
 
-#test without an argument; should return 1
 @test "lsdirs" {
   #lsdirs with no argument
   run lsdirs
@@ -20,23 +18,19 @@ lsdirs() {
   [ $status -eq 1 ]
 }
 
-#should return list of directories in /usr/java/default
-#one per line
-@test "lsdirs /usr/java/default" {
+@test "lsdirs /etc/security" {
   #lsdirs with directory argument
-  run lsdirs /usr/java/default
+  run lsdirs /etc/security
+  echo "$output"
   #assertions
-  [ "${lines[0]}" = "man" ]
-  [ "${lines[1]}" = "lib" ]
-  [ "${lines[2]}" = "jre" ]
-  [ "${lines[3]}" = "include" ]
-  [ "${lines[4]}" = "db" ]
-  [ "${lines[5]}" = "bin" ]
+  [ "${lines[0]}" = "namespace.d" ]
+  [ "${lines[1]}" = "limits.d" ]
+  [ "${lines[2]}" = "console.perms.d" ]
+  [ "${lines[3]}" = "console.apps" ]
   [ $status -eq 0 ]
 }
 
-#argument isn't a directory; should return 1
-@test "lsdirs /usr/java/default/src.zip" {
+@test "lsdirs /etc/default/grub" {
   #lsdirs with file argument
   run lsdirs /usr/java/default/src.zip
   #assertions

@@ -21,11 +21,11 @@ revline() {
   [ $status -eq 1 ]
 }
 
-@test "revline hi there cs5520" {
+@test "revline hi there cs5521" {
   #revline with argument
-  run revline 'hi there cs5520'
+  run revline 'hi there cs5521'
   echo $output
-  [ "$output" == "0255sc ereht ih" ]
+  [ "$output" == "1255sc ereht ih" ]
   [ $status -eq 0 ]
 }
 

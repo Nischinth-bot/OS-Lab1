@@ -76,9 +76,9 @@ recdirs() {
 }
 
 #test on an argument that is a file, not a directory; should return 1
-@test "recdirs /usr/java/default/src.zip" {
+@test "recdirs /etc/default/grub" {
   #recdirs with file argument
-  run recdirs /usr/java/default/src.zip
+  run recdirs /etc/default/grub
   #assertions
   [ $status -eq 1 ]
 }
