@@ -7,7 +7,8 @@
 userIdWnums() {
   #put your one line bash script here
   #The /etc/passwd file contains a line for each user account on the student 
-  #machine.  
+  #machine. 
+  cat /etc/passwd | awk -F: '{print $1}' | sort | uniq | awk '/[0-9]/' | wc | awk '{print $1}'
   return 0   
 }
 

@@ -8,7 +8,9 @@ loggedon() {
    #Be careful that some of the users may 
    #be logged on more than once but only should be counted once.
    #To see what the the output of your script should be type: ./loggedon
+   who | awk '{print $1}' | sort | uniq | wc | awk '{print $1}'
    return 0   
+
 }
 
 @test "loggedon" {
