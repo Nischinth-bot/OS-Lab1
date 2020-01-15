@@ -7,7 +7,8 @@
 userIdNnums() {
   #The /etc/passwd file contains a line for each user account on the student 
   #machine.  Give a linux command line that begins with grep that displays 
-  #the number of user accounts that do NOT contain a number in the username 
+  #the number of user accounts that do NOT contain a number in the username  
+  cat /etc/passwd | awk -F: '{print $1}' | sort | uniq | grep -iv '[0-9]' | wc | awk '{print $1}'
   return 0   
 }
 
