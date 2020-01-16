@@ -4,8 +4,8 @@
 #the number of digits in the output of the date command. 
 #It also returns 0.
 countDateNums() {
-   #put your one line bash script here
-   return 0   
+  date | awk '/[0-9]/ {print $3, $4, $6}' | tr -d [":"] | tr -d [:blank:] | wc -c | awk '{printf("%d\n", $1 - 1)}'
+  return 0   
 }
 
 @test "countDateNums" {

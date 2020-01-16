@@ -6,7 +6,11 @@
 #is not 1, it returns a status of 1. Otherwise, it returns a status
 #of 0.
 capitalize() {
-   #put your code here
+   if [ "$#" -ne 1 ]; then 
+     return 1
+   else
+     echo "$1" | tr "[a,e,i,o,u]" "[A,E,I,O,U]"
+   fi
    return 0   
 }
 
