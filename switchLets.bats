@@ -6,7 +6,12 @@
 #1, it returns a status of 1. Otherwise, it returns
 #a status of 1 
 switchLetters() {
- return 0
+    if [ "$#" -ne 1 ]; then 
+     return 1
+   else
+     echo "$1" | sed -r 's/(...)(.*)(...)/\3\2\1/'
+   fi
+   return 0   
 }
 
 @test "switchLetters hi there" {
