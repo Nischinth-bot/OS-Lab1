@@ -27,36 +27,47 @@
 #2) there
 #3) howdy
 handleCSV() {
-  #put your script code here
-  return 0   
+if [ "$#" -ne 1 ]; then
+    return 1
+fi
+cat "$1" | tr "," "\n" | sed -r 's/(\s)+(.*)/\2\1/' > new.txt
+var=1
+while read p; do
+echo "$var) $p"
+var=$((var + 1))
+if [ $var -eq 4 ];then
+    var=1
+fi
+done <new.txt
+return 0
 }
 
 @test "handleCSV CSVinput" {
-  run handleCSV CSVinput 
-  #$lines is an array of the output of the run
-  [ "${lines[0]}" = "1) a" ] 
-  [ "${lines[1]}" = "2) b" ] 
-  [ "${lines[2]}" = "3) c" ] 
-  [ "${lines[3]}" = "1) e" ] 
-  [ "${lines[4]}" = "2) f" ] 
-  [ "${lines[5]}" = "3) g" ] 
-  [ "${lines[6]}" = "1) aaa" ] 
-  [ "${lines[7]}" = "2) bbb" ] 
-  [ "${lines[8]}" = "3) ccc" ] 
-  [ "${lines[9]}" = "1) hi" ] 
-  [ "${lines[10]}" = "2) there" ] 
-  [ "${lines[11]}" = "3) howdy" ] 
-  [ "$status" = "0" ]
+    run handleCSV CSVinput 
+#$lines is an array of the output of the run
+        [ "${lines[0]}" = "1) a" ] 
+        [ "${lines[1]}" = "2) b" ] 
+        [ "${lines[2]}" = "3) c" ] 
+        [ "${lines[3]}" = "1) e" ] 
+        [ "${lines[4]}" = "2) f" ] 
+        [ "${lines[5]}" = "3) g" ] 
+        [ "${lines[6]}" = "1) aaa" ] 
+        [ "${lines[7]}" = "2) bbb" ] 
+        [ "${lines[8]}" = "3) ccc" ] 
+        [ "${lines[9]}" = "1) hi" ] 
+        [ "${lines[10]}" = "2) there" ] 
+        [ "${lines[11]}" = "3) howdy" ] 
+        [ "$status" = "0" ]
 }
 
 #test without no arguments; should return 1
 @test "handleCSV" {
-  run handleCSV 
-  [ "$status" = "1" ]
+    run handleCSV 
+        [ "$status" = "1" ]
 }
 
 #test without bad argument; should return 1
 @test "handleCSV nofile" {
-  run handleCSV nofile
-  [ "$status" = "1" ]
+    run handleCSV nofile
+        [ "$status" = "1" ]
 }
