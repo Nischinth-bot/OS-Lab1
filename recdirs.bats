@@ -10,10 +10,7 @@
 #returns 1. Otherwise, the function returns 0.
 
 recdirs() { 
-  if [ "$#" -ne 1 ]; then
-      return 1
-  fi
-  if ! [ -d "$1" ]; then
+  if [ "$#" -ne 1 ] ||  ! [ -d "$1" ]; then
       return 1
   fi
   recdirs2 "$1"
