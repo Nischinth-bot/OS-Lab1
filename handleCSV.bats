@@ -27,9 +27,10 @@
 #2) there
 #3) howdy
 handleCSV() {
-if [ "$#" -ne 1 ]; then
+if [ "$#" -ne 1 ] || ! [ -f "$1" ]; then
     return 1
 fi
+
 cat "$1" | tr "," "\n" | sed -r 's/(\s)+(.*)/\2\1/' > new.txt
 var=1
 while read p; do
