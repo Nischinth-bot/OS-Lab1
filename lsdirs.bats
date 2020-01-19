@@ -8,7 +8,11 @@
 #a directory the function returns 1. Otherwise,
 #the function returns 0.
 lsdirs() {
-  return 0   
+    if [ "$#" -ne 1 ] || ! [ -d "$1" ]; then
+    return 1
+    fi
+    ls -ld -- "$1"/* | grep "^d" | awk '{print $9}' | sed 's/\//\:/g' | awk -F: '{print $4}' | sort -r 
+    return 0   
 }
 
 @test "lsdirs" {
