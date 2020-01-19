@@ -8,12 +8,31 @@
 #in a depth first order.  If the number of arguments is 
 #not 1 or the argument is not a directory the function 
 #returns 1. Otherwise, the function returns 0.
-recdirs() {
-  #put your script here
-  #use this echo to produce the expected output
-# echo "directory: $1, number of subdirectories: $count"
+
+recdirs() { 
+  if [ "$#" -ne 1 ]; then
+      return 1
+  fi
+  if ! [ -d "$1" ]; then
+      return 1
+  fi
+  recdirs2 "$1"
   return 0   
 }
+
+recdirs2() {
+ if [ -d "$1" ] && ! [ -z "$(ls -A $1)" ]; then
+  ls -ld $1/* | grep "^d" | awk '{print $9}' > dirs.txt #collect the subdirectories one level down   
+  count=$(cat dirs.txt | wc -l) #get the count of sub  
+  echo "directory: $1, number of subdirectories: ${count}" #echo them    
+  for ln in `cat dirs.txt`; do
+      recdirs2 $ln
+      done
+  else
+  echo "directory: $1, number of subdirectories: 0" #echo them   
+  fi 
+}
+
 
 #test recdirs with no argument; it should return 1
 @test "recdirs" {
