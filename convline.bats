@@ -10,7 +10,14 @@
 #If the number of arguments is not 1 or the string
 #doesn't match the pattern, the function returns 1. 
 convline() {
-  #put your script here
+  if [ "$#" -ne 1 ]; then
+      return 1
+  fi
+  VAR=$(echo "$1" | sed -r 's/^(a+)([^a].*[^b])(b+)$/\3 X \1/;s/^(a+)(b+)$/\2 X \1/')
+  if ! [ "$VAR" = "$1" ]; then
+      echo "$VAR"
+      return 0
+  fi
   return 1
 }
 
