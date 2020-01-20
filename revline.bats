@@ -9,9 +9,24 @@
 #If the number of arguments is not 1, the function returns 1. 
 #Otherwise, the function returns 0.
 revline() {
-  #put your script here
-  return 0   
+    if [ "$#" -ne 1 ]; then return 1
+        fi
+    rm *.txt
+    echo "$1" | tr " " "\n" | sed '1!G;h;$!d' > words.txt
+    for ln in `cat words.txt`; do
+        revword "$ln"  >> final.txt
+        done
+    result=$(cat final.txt | tr "\n" " " | sed -r 's/^(.*)\s$/\1/')
+    echo "$result"
+    return 0
 }
+
+revword() {
+    echo "$1" | sed -r 's/./&\n/g' > revword.txt
+    result=$(sed '1!G;h;$!d' revword.txt | tr -d "\n")  
+    echo "$result"
+    return 0
+    }
 
 #test on no arguments; should return 1
 @test "revline" {
